@@ -9,6 +9,11 @@
         - console: Instance of the Console class from the rich library, defined with various styles.
 """
 
+import functools
+import logging
+from rich.traceback import install
+from rich.logging import RichHandler
+from typing import Optional, Callable, Any
 from typing import Optional, Callable, Any, Dict, Tuple
 from rich.progress import Progress, ProgressColumn, BarColumn, TextColumn
 from rich.text import Text
@@ -27,6 +32,9 @@ console: Console = Console(theme=Theme({
     "pink": "pale_violet_red1",
     "pink_bold": "pale_violet_red1 bold",
     "pink_italic": "pale_violet_red1 italic",
+    "ruby_red": "rgb(224,34,103)",
+    "ruby_red_bold": "rgb(224,34,103) bold",
+    "ruby_red_italic": "rgb(224,34,103) italic",
     "red": "bright_red",
     "red_bold": "bright_red bold",
     "red_italic": "bright_red italic",
@@ -57,10 +65,33 @@ console: Console = Console(theme=Theme({
     "gray": "rgb(58,58,58)",
     "gray_bold": "rgb(58,58,58) bold",
     "gray_italic": "rgb(58,58,58) italic",
+
     "repr.number": "bright_red bold",
-    "warning": "rgb(224,34,103)",
-    "warning_bold": "rgb(224,34,103) bold",
-    "warning_italic": "rgb(224,34,103) italic"
+
+    "info": "dodger_blue2 bold",
+    "logging.level.info": "dodger_blue2 bold",
+
+    "warning": "bright_yellow bold",
+    "logging.level.warning": "bright_yellow bold",
+
+    "error": "bright_red bold",
+    "logging.level.error": "bright_red bold",
+
+    "success": "green bold",
+    # "logging.level.success": "green bold",
+
+    "debug": "green bold",
+    "logging.level.debug": "green bold",
+
+    "critical": "rgb(0,0,0) on bright_red bold",
+    "logging.level.critical": "rgb(0,0,0) on bright_red bold",
+
+    "logging.level": "red",           # Ogólny styl poziomów logowania
+    "logging.time": "red",                   # Timestamp w cyjanowym
+    "logging.message": "red",
+
+    "log.time": "rgb(224,34,103) italic",
+    "log.level": "rgb(224,34,103) bold",
 }))
 
 
@@ -356,7 +387,7 @@ class ProgressBarManager:
                  total: int = None,
                  bar: str = "rich",
                  custom_chars: tuple = None,
-                 unknown_style: str = "warning_bold") -> None:
+                 unknown_style: str = "ruby_red_bold") -> None:
 
         self.total: int = total
         self._init_colors(colors, total, unknown_style)
@@ -423,7 +454,7 @@ class ProgressBarManager:
                 bar_width=self.bar_width,
                 complete_style=self.current_style,
                 finished_style=last_color,
-                pulse_style=self.current_style if self.total is None else "warning_bold"
+                pulse_style=self.current_style if self.total is None else "ruby_red_bold"
             ),
             self.progress_column,
             self.remaining_column,
@@ -638,10 +669,53 @@ def test_decorator_progress(progress_bar: ProgressBarManager) -> None:
         time.sleep(0.05)
 
 
+# if __name__ == "__main__":
+#     test_unknown_progress()
+#     test_unknown_progress_custom_style()
+#     test_colorful_progress()
+#     test_simple_progress()
+#     test_custom_progress()
+#     test_decorator_progress()
+
+
+def test_logging() -> None:
+    # Konfiguracja loggera z Rich handlerem
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(message)s",
+        handlers=[RichHandler(rich_tracebacks=True, console=console)]
+    )
+
+    logger = logging.getLogger("rich")
+
+    # Przykłady różnych poziomów logowania
+    logger.debug("🔍 To jest wiadomość debug z dodatkowymi szczegółami")
+    logger.info("ℹ️ Informacja o normalnym działaniu programu")
+    logger.warning("⚠️ Ostrzeżenie - coś może pójść nie tak!")
+    logger.error("❌ Błąd krytyczny w module XYZ")
+    logger.critical("💥 KRYTYCZNY BŁĄD - natychmiastowa akcja wymagana!")
+
+    # Logowanie z dodatkowymi danymi
+    extra_data = {"user": "admin", "ip": "192.168.1.1"}
+    logger.info("🔐 Próba logowania", extra=extra_data)
+
+    # Logowanie wyjątków
+    try:
+        x = 1 / 0
+    except Exception as e:
+        logger.exception("💀 Wystąpił nieoczekiwany błąd:")
+
+    # Logowanie z timestampem
+    logger.info(f"⏰ Akcja wykonana o: {time.strftime('%H:%M:%S')}")
+
+    # Logowanie postępu
+    logger.info("📊 Postęp operacji: 75%")
+
+    # Logowanie z różnymi stylami
+    logger.info("[blue]Niebieska[/blue] wiadomość")
+    logger.warning("[yellow]Żółte[/yellow] ostrzeżenie")
+    logger.error("[red]Czerwony[/red] błąd")
+
+
 if __name__ == "__main__":
-    test_unknown_progress()
-    test_unknown_progress_custom_style()
-    test_colorful_progress()
-    test_simple_progress()
-    test_custom_progress()
-    test_decorator_progress()
+    test_logging()
