@@ -78,7 +78,6 @@ console: Console = Console(theme=Theme({
     "logging.level.error": "bright_red bold",
 
     "success": "green bold",
-    # "logging.level.success": "green bold",
 
     "debug": "green bold",
     "logging.level.debug": "green bold",
@@ -93,43 +92,6 @@ console: Console = Console(theme=Theme({
     "log.time": "rgb(224,34,103) italic",
     "log.level": "rgb(224,34,103) bold",
 }))
-
-
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="purple")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="purple_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="purple_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="pink")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="pink_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="pink_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="red")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="red_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="red_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="brown")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="brown_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="brown_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="orange")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="orange_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="orange_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="yellow")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="yellow_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="yellow_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="green")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="green_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="green_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="blue")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="blue_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="blue_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="white")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="white_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="white_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="normal")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="normal_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="normal_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="black")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="black_bold")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="black_italic")
-# console.print("╚═══ Multimedia Magic – Audio Visual Heaven ═══╝", style="repr.number")
-# input()
 
 
 # table = Table(title="Available Styles")
@@ -212,99 +174,6 @@ console: Console = Console(theme=Theme({
 # )
 
 # console.print(table)
-
-
-# class ColoredProgressColumn(ProgressColumn):
-#     def __init__(self, style_name):
-#         self.style_name = style_name
-#         super().__init__()
-
-#     def render(self, task) -> Text:
-#         percentage = int(task.percentage)
-#         return Text(f"{percentage:>3d}%", style=self.style_name)
-
-
-# class ColoredTimeColumn(ProgressColumn):
-#     def __init__(self, style_name):
-#         self.style_name = style_name
-#         super().__init__()
-
-#     def render(self, task) -> Text:
-#         elapsed = task.elapsed
-#         if elapsed is None:
-#             return Text("00:00:00.000", style=self.style_name)
-
-#         hours = int(elapsed // 3600)
-#         minutes = int((elapsed % 3600) // 60)
-#         seconds = int(elapsed % 60)
-#         milliseconds = int((elapsed % 1) * 1000)
-
-#         return Text(f"| {hours:02d}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}", style=self.style_name)
-
-
-# class ColoredRemainingColumn(ProgressColumn):
-#     def __init__(self, style_name):
-#         self.style_name = style_name
-#         super().__init__()
-
-#     def render(self, task) -> Text:
-#         remaining = task.time_remaining
-#         if remaining is None:
-#             return Text("00:00:00", style=self.style_name)
-
-#         hours = int(remaining // 3600)
-#         minutes = int((remaining % 3600) // 60)
-#         seconds = int(remaining % 60)
-
-#         return Text(f"| {hours:02d}:{minutes:02d}:{seconds:02d}", style=self.style_name)
-
-
-# def color_progress():
-#     current_style = "red_bold"
-#     progress_column = ColoredProgressColumn(current_style)
-#     time_column = ColoredTimeColumn(current_style)
-#     remaining_column = ColoredRemainingColumn(current_style)
-
-#     progress = Progress(
-#         TextColumn("[progress.description]{task.description}"),
-#         BarColumn(
-#             bar_width=40,
-#             complete_style=current_style,
-#             finished_style="green_bold"  # LAST COLOR
-#         ),
-#         progress_column,
-#         remaining_column,
-#         time_column,
-#         console=console,
-#         expand=False
-#     )
-
-#     with progress:
-#         task = progress.add_task("[red_bold]Processing...", total=100)
-
-#         colors = {
-#             25: ("red_bold", "red_bold"),
-#             50: ("orange_bold", "orange_bold"),
-#             75: ("yellow_bold", "yellow_bold"),
-#             100: ("green_bold", "green_bold")
-#         }
-
-#         for i in range(100):
-#             for threshold, (text_color, bar_color) in colors.items():
-#                 if i <= threshold:
-#                     progress.columns[1].complete_style = bar_color
-#                     progress_column.style_name = bar_color
-#                     time_column.style_name = bar_color
-#                     remaining_column.style_name = bar_color
-#                     progress.update(task,
-#                                     advance=1,
-#                                     description=f"[{text_color}]Processing...")
-#                     break
-#             time.sleep(0.05)
-
-
-# color_progress()
-
 
 # Progress Bar Styles
 class ProgressBar:
@@ -683,6 +552,7 @@ def test_logging() -> None:
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(message)s",
+        datefmt="[%Y-%m-%d %H:%M:%S]",
         handlers=[RichHandler(rich_tracebacks=True, console=console)]
     )
 
@@ -710,12 +580,6 @@ def test_logging() -> None:
 
     # Logowanie postępu
     logger.info("📊 Postęp operacji: 75%")
-
-    # Logowanie z różnymi stylami
-    logger.info("[blue]Niebieska[/blue] wiadomość")
-    logger.warning("[yellow]Żółte[/yellow] ostrzeżenie")
-    logger.error("[red]Czerwony[/red] błąd")
-
 
 if __name__ == "__main__":
     test_logging()
