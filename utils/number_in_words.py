@@ -1,49 +1,47 @@
 """
-    Module `NumberInWords` provides a class `NumberInWords`
+    Module `NumberInWords` provides a class `NumberInWords` 
         that converts numbers into Polish words.
     It offers several functions that can be used in various contexts.
 
     -*- coding: utf-8 -*-
 
     * Example: First, create an instance of the `NumberInWords` class:
-        number_in_words = NumberInWords()
+        from utils.number_in_words import NumberInWords
+        number_in_words: NumberInWords = NumberInWords()
 
     * Example usage of function `_number_in_words_3digits`:
-        print(number_in_words._number_in_words_3digits(123))
-            Outputs: "sto dwadzieścia trzy"
+        result: str = number_in_words._number_in_words_3digits(123)
+        print(result)  # Outputs: "sto dwadzieścia trzy"
 
     * Example usage of function `_case`:
-        print(number_in_words._case(1))     # Outputs: 0
-        print(number_in_words._case(12))    # Outputs: 2
-        print(number_in_words._case(23))    # Outputs: 1
+        case1: int = number_in_words._case(1)     # Outputs: 0
+        case2: int = number_in_words._case(12)    # Outputs: 2
+        case3: int = number_in_words._case(23)    # Outputs: 1
 
     * Example usage of function `number_in_words`:
     Inputs: int, float, str (string works with long (30 digits, 15 on both sides) floating point numbers)
-        print('Int: 123456789012345 =', number_in_words.number_in_words(123_456_789_012_345))
-        print('Float: 0.123456789012345 =',
-            number_in_words.number_in_words(0.123_456_789_012_345))
-        print('String: 123456789012345.123456789012345 =',
-            number_in_words.number_in_words('123_456_789_012_345.123_456_789_012_345'))
-        print('String: 123456789012345,123456789012345 =',
-            number_in_words.number_in_words('123_456_789_012_345,123_456_789_012_345'))
+        result1: str = number_in_words.number_in_words(123_456_789_012_345)
+        result2: str = number_in_words.number_in_words(0.123_456_789_012_345)
+        result3: str = number_in_words.number_in_words('123_456_789_012_345.123_456_789_012_345')
+        result4: str = number_in_words.number_in_words('123_456_789_012_345,123_456_789_012_345')
 
     * Example usage of function `thing_in_words`:
-        print(number_in_words.thing_in_words(5, ["jabłko", "jabłka", "jabłek"]))
-            Outputs: "pięć jabłek"
+        result5: str = number_in_words.thing_in_words(5, ["jabłko", "jabłka", "jabłek"])
+            # Outputs: "pięć jabłek"
 
-        print(number_in_words.thing_in_words(21, ["jabłko", "jabłka", "jabłek"]))
-            Outputs: "dwadzieścia jeden jabłek"
+        result6: str = number_in_words.thing_in_words(21, ["jabłko", "jabłka", "jabłek"])
+            # Outputs: "dwadzieścia jeden jabłek"
 
     * Example usage of function `amount_in_words`:
-        print(number_in_words.amount_in_words(1234.56))
-            Outputs: "jeden tysiąc dwieście trzydzieści cztery złote 56/100"
+        result7: str = number_in_words.amount_in_words(1234.56)
+            # Outputs: "jeden tysiąc dwieście trzydzieści cztery złote 56/100"
 
-        print(number_in_words.amount_in_words(567.89, fmt=1))
-            Outputs: "pięćset sześćdziesiąt siedem złotych osiemdziesiąt dziewięć groszy"
+        result8: str = number_in_words.amount_in_words(567.89, fmt=1)
+            # Outputs: "pięćset sześćdziesiąt siedem złotych osiemdziesiąt dziewięć groszy"
 
     * Example usage of function `convert_numbers_in_text`:
-        print(number_in_words.convert_numbers_in_text('Rozdział 69.2_3 / 4 (test96).'))
-            Outputs: "Rozdział sześćdziesiąt dziewięć przecinek dwa_trzy / cztery (test dziewięćdziesiąt sześć)."
+        result9: str = number_in_words.convert_numbers_in_text('Rozdział 69.2_3 / 4 (test96).')
+            # Outputs: "Rozdział sześćdziesiąt dziewięć przecinek dwa_trzy / cztery (test dziewięćdziesiąt sześć)."
 """
 
 import re
@@ -57,6 +55,30 @@ from six import u
 class NumberInWords:
     """
         NumberInWords is a class that converts numbers into Polish words.
+
+        >>> number_in_words = NumberInWords()
+        >>> number_in_words._number_in_words_3digits(123)
+        'sto dwadzieścia trzy'
+        >>> number_in_words._case(1)
+        0
+        >>> number_in_words._case(12)
+        2
+        >>> number_in_words._case(23)
+        1
+        >>> number_in_words.number_in_words(123_456_789_012_345)
+        'sto dwadzieścia trzy biliony czterysta pięćdziesiąt sześć miliardów siedemset osiemdziesiąt dziewięć milionów dwanaście tysięcy trzysta czterdzieści pięć'
+        >>> number_in_words.number_in_words(0.123_456_789_012_345)
+        'zero przecinek sto dwadzieścia trzy kwadryliony czterysta pięćdziesiąt sześć trylionów siedemset osiemdziesiąt dziewięć biliardów dwanaście milionów trzysta czterdzieści pięć'
+        >>> number_in_words.thing_in_words(5, ["jabłko", "jabłka", "jabłek"])
+        'pięć jabłek'
+        >>> number_in_words.thing_in_words(21, ["jabłko", "jabłka", "jabłek"])
+        'dwadzieścia jeden jabłek'
+        >>> number_in_words.amount_in_words(1234.56)
+        'jeden tysiąc dwieście trzydzieści cztery złote 56/100'
+        >>> number_in_words.amount_in_words(567.89, fmt=1)
+        'pięćset sześćdziesiąt siedem złotych osiemdziesiąt dziewięć groszy'
+        >>> number_in_words.convert_numbers_in_text('Rozdział 69.2_3 / 4 (test96).')
+        'Rozdział sześćdziesiąt dziewięć przecinek dwa_trzy / cztery (test dziewięćdziesiąt sześć).'
     """
 
     UNITS: list = field(default_factory=lambda: [
@@ -210,7 +232,7 @@ class NumberInWords:
         result: str = ''
         number: str = ''
         special_chars: List[str] = ['!', '@', '#', '$', '%', '^', '&', '*',
-                                    '(', ')', '_', '+', '~', '`', '{', '}', '|', '[', ']', '\\', ':', '"', ';', "'", '<', '>', '?', '/', '-']
+                                    '(', ')', '_', '+', '~', '`', '{', '}', '|', '[', ']', '\\', ':', '"', ';', "'", '<', '>', '?', '/', '-', '.', ',']
         for i, char in enumerate(text):
             if char.isdigit() or (char in ['.', ','] and i > 0 and i < len(text) - 1 and text[i-1].isdigit() and text[i+1].isdigit()):
                 number += char
@@ -219,21 +241,15 @@ class NumberInWords:
                     for special_char in special_chars:
                         if number.count(special_char) > 1:
                             for part in number.split(special_char):
-                                number_in_words: str = self.number_in_words(
-                                    part)
-                                result += number_in_words + special_char
-                            # Usuwamy ostatni znak specjalny
+                                if part:
+                                    number_in_words: str = self.number_in_words(
+                                        part)
+                                    result += number_in_words + special_char
                             result = result[:-1]
                             break
                     else:
                         if number.count('.') == 1 or number.count(',') == 1:
                             number_in_words: str = self.number_in_words(number)
-                            if (
-                                result
-                                and not result[-1].isspace()
-                                and result[-1] not in special_chars
-                            ):
-                                result += ' '
                             result += number_in_words
                         else:
                             parts: List[str] = re.split('(\D)', number)
@@ -241,30 +257,63 @@ class NumberInWords:
                                 if part.isdigit():
                                     number_in_words: str = self.number_in_words(
                                         part)
-                                    if (
-                                        result
-                                        and not result[-1].isspace()
-                                        and result[-1] not in special_chars
-                                    ):
-                                        result += ' '
                                     result += number_in_words
                                 else:
                                     result += part
-                    if (
-                        i < len(text) - 1
-                        and not text[i].isspace()
-                        and text[i] not in special_chars
-                    ):
-                        result += ' '
                     number = ''
                 result += char
         if number and number not in special_chars:
             number_in_words: str = self.number_in_words(number)
-            if (
-                result
-                and not result[-1].isspace()
-                and result[-1] not in special_chars
-            ):
-                result += ' '
             result += number_in_words
         return result
+
+
+def main() -> None:
+    """
+        Test function
+    """
+    number_in_words: NumberInWords = NumberInWords()
+
+    # Test number_in_words with different input types
+    result1: str = number_in_words.number_in_words(123_456_789_012_345)
+    print(f"Input: 123_456_789_012_345")
+    print(f"Large integer: {result1}\n")
+
+    result2: str = number_in_words.number_in_words(0.123_456_789_012_345)
+    print(f"Input: 0.123_456_789_012_345")
+    print(f"Decimal number: {result2}\n")
+
+    result3: str = number_in_words.number_in_words(
+        '123_456_789_012_345.123_456_789_012_345')
+    print(f"Input: '123_456_789_012_345.123_456_789_012_345'")
+    print(f"Large decimal string: {result3}\n")
+
+    # Test thing_in_words
+    result4: str = number_in_words.thing_in_words(
+        5, ["jabłko", "jabłka", "jabłek"])
+    print(f"Input: 5, ['jabłko', 'jabłka', 'jabłek']")
+    print(f"5 apples: {result4}\n")
+
+    result5: str = number_in_words.thing_in_words(
+        21, ["jabłko", "jabłka", "jabłek"])
+    print(f"Input: 21, ['jabłko', 'jabłka', 'jabłek']")
+    print(f"21 apples: {result5}\n")
+
+    # Test amount_in_words
+    result6: str = number_in_words.amount_in_words(1234.56)
+    print(f"Input: 1234.56")
+    print(f"Amount (format 0): {result6}\n")
+
+    result7: str = number_in_words.amount_in_words(567.89, fmt=1)
+    print(f"Input: 567.89, fmt=1")
+    print(f"Amount (format 1): {result7}\n")
+
+    # Test convert_numbers_in_text
+    result8: str = number_in_words.convert_numbers_in_text(
+        'Rozdział 69.2_3 / 4 (test96).')
+    print(f"Input: 'Rozdział 69.2_3 / 4 (test96).'")
+    print(f"Text with numbers: {result8}")
+
+
+if __name__ == '__main__':
+    main()

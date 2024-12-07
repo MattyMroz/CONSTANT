@@ -31,48 +31,48 @@ from os import name, system
 import sys
 from threading import Thread
 from time import sleep
-from typing import List
+from typing import List, NoReturn
 
 
 class CoolAnimation:
     """
-    This class provides methods to display a text-based animation effect.
+        This class provides methods to display a text-based animation effect.
 
-    Attributes:
-        - load_str (str):
-            The input string used for creating the animation effect.
+        Attributes:
+            - load_str (str):
+                The input string used for creating the animation effect.
 
-        - ls_len (int):
-            The length of the load string.
+            - ls_len (int):
+                The length of the load string.
 
-        - animation (str):
-            A set of characters used for animation.
+            - animation (str):
+                A set of characters used for animation.
 
-        - stop_animation (bool):
-            A flag to control the animation loop.
+            - stop_animation (bool):
+                A flag to control the animation loop.
 
-        - show_border (bool):
-            A flag to control whether to display the border around the animation.
+            - show_border (bool):
+                A flag to control whether to display the border around the animation.
 
-        - middle_offset (int):
-            An offset to customize the position where the animation character is displayed within the string.
+            - middle_offset (int):
+                An offset to customize the position where the animation character is displayed within the string.
 
-        - use_animation (bool):
-            A flag to control whether animation characters are added to the string.
+            - use_animation (bool):
+                A flag to control whether animation characters are added to the string.
 
-    Methods:
-        - __init__(self, load_str: str = "multimedia magic   audio visual heaven ",
-                   show_border: bool = True, middle_offset: int = 2, use_animation: bool = True)
-            Initializes a CoolAnimation object with given options.
+        Methods:
+            - __init__(self, load_str: str = "multimedia magic   audio visual heaven ",
+                    show_border: bool = True, middle_offset: int = 2, use_animation: bool = True)
+                Initializes a CoolAnimation object with given options.
 
-        - display(self) -> None:
-            Displays the animation until user input is detected.
+            - display(self) -> None:
+                Displays the animation until user input is detected.
 
-        - check_input(self) -> None:
-            Helper method to check for user input and stop the animation.
+            - check_input(self) -> None:
+                Helper method to check for user input and stop the animation.
 
-        - display(self) -> None:
-            Main method to display the animation effect.
+            - display(self) -> None:
+                Main method to display the animation effect.
     """
 
     def __init__(self, load_str: str = "multimedia magic   audio visual heaven",
@@ -141,3 +141,15 @@ class CoolAnimation:
             system("cls")
         else:
             system("clear")
+
+
+def main() -> None:
+    animation: CoolAnimation = CoolAnimation(load_str="multimedia magic   audio visual heaven",
+                                             show_border=True,
+                                             middle_offset=-2,
+                                             use_animation=True)
+    animation.display()
+
+
+if __name__ == '__main__':
+    main()

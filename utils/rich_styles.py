@@ -908,7 +908,7 @@ def test_logging() -> None:
     logger = logging.getLogger("rich")
 
     logger.debug("🔍 Debug message with details")
-    logger.info("ℹ️ Normal program operation info") 
+    logger.info("ℹ️ Normal program operation info")
     logger.warning("⚠️ Warning - something might go wrong!")
     logger.error("❌ Critical error in module XYZ")
     logger.critical("💥 CRITICAL ERROR - immediate action required!")
@@ -926,7 +926,10 @@ def test_logging() -> None:
     logger.info("📊 Operation progress: 75%")
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """
+        Main function testing various styles and functionalities.
+    """
     print_available_styles()
     test_unknown_progress()
     test_unknown_progress_custom_style()
@@ -937,3 +940,7 @@ if __name__ == "__main__":
     test_simple_progress_custom()
     test_decorator_progress()
     test_logging()
+
+
+if __name__ == "__main__":
+    main()
